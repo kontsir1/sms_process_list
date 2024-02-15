@@ -34,7 +34,7 @@ uploaded_file = st.sidebar.file_uploader("Choose a file (TXT or CSV)")
 output_file_name = st.sidebar.text_input("Output CSV name", "output.csv")
 split_option = st.sidebar.checkbox("Split file into two?")
 if split_option:
-    split_percentage = st.sidebar.slider("Split Percentage", min_value=0, max_value=100, value=60)
+    split_percentage = st.sidebar.slider("Split Percentage", min_value=0, max_value=100, value=60, step=10)
 
 if uploaded_file is not None:
     try:
