@@ -12,7 +12,11 @@ def shuffle_data(df):
 
 def drop_customer_id(df):
     """Drop the 'CUSTOMER_ID' column from the DataFrame."""
-    return df.drop(columns=["CUSTOMER_ID"], errors="ignore")
+    if "CUSTOMER_ID" in df.columns:
+        df = df.drop(columns=["CUSTOMER_ID"])
+        return df, True
+    else:
+        return df, False
 
 def remove_duplicates(df):
     """Remove duplicate entries based on 'MSISDN'."""
@@ -47,7 +51,12 @@ if uploaded_file is not None:
         st.success("List shuffled successfully.")
         st.write("Shuffled List:", df.head(10))
 
-    df = drop_customer_id(df)
+    df, customer_id_dropped = drop_customer_id(df)
+    if customer_id_dropped:
+        st.success("CUSTOMER_ID column deleted successfully.")
+    else:
+        st.info("CUSTOMER_ID column not found.")
+    
     df, removed_count = remove_duplicates(validate_msisdn(df))
     if removed_count > 0:
         st.success(f"Removed {removed_count} duplicate MSISDN entries.")
