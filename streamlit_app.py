@@ -4,8 +4,8 @@ import numpy as np
 
 # Define processing functions for functional programming approach
 def load_data(file):
-    """Load the uploaded file into a DataFrame, considering the pipe delimiter."""
-    return pd.read_csv(file, delimiter='|')
+    """Load the uploaded file into a DataFrame, considering the pipe delimiter and treating numbers as strings."""
+    return pd.read_csv(file, delimiter='|', dtype=str)
 
 def shuffle_data(df):
     """Shuffle the DataFrame rows."""
